@@ -4,6 +4,7 @@
 #include "Render.h"
 #include "Level.h"
 #include "TextureManager.h"
+#include "Audio.h"
 
 Level::Level() {
 
@@ -18,13 +19,14 @@ Level::~Level() {
 bool Level::Start() {
 	bool ret = true;
 
-	//texture = gGame->textures->Load("Assets/Background.png");
+	gGame->audio->PlayMusic("Assets/ost.mp3");
+	texture = gGame->textures->Load("Assets/background.jpg");
 	if (texture == nullptr) {
 		ret = false;
 	}
 
-	src.w = 1200;
-	src.h = 800;
+	src.w = 1750;
+	src.h = 1750;
 	src.x = src.y = 0;
 	return ret;
 }
@@ -42,7 +44,7 @@ update_status Level::Update() {
 bool Level::CleanUp()
 {
 	LOG("Unloading SceneForest");
-
+	gGame->audio->Disable();
 	bool ret = true;
 
 	return ret;

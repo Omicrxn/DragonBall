@@ -4,8 +4,7 @@
 
 #include "Globals.h"
 #include "Time.h"
-#include "SDL_mixer.h"
-#define NUM_MODULES 6 //number of modules created
+#define NUM_MODULES 7 //number of modules created
 //definition of all the modules created
 class Window;
 class Input;
@@ -14,13 +13,13 @@ class Module;
 class TextureManager;
 class Player;
 class Level;
+class Audio;
 
 class Game
 {
 public:
 	Game();//constructor
 	~Game();//deconstructor
-	Mix_Music* backgroundSound;
 	Module* modules[NUM_MODULES];//array of all modules
 	//variables of all modules
 	Window* window;
@@ -29,6 +28,7 @@ public:
 	Player* player;
 	TextureManager* textures;
 	Level* level;
+	Audio* audio;
 	public:
 	bool Init();//method to initialize everything
 	update_status Update();//variable to update which returns update_status (globals.h)

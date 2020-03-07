@@ -2,6 +2,7 @@
 #define __PLAYER_H__
 #include "Module.h"
 #include "Globals.h"
+#include "Animation.h"
 
 struct position {
 	int x, y;
@@ -22,9 +23,12 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	//Animations
+	Animation normal_anim;
+	Animation* curr_anim;
+
 	SDL_Texture* texture = nullptr;
-	SDL_Rect rect;
-	SDL_Rect fire;
+	
 
 };
 #endif // !__PLAYER_H__

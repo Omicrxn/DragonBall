@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Input.h" />

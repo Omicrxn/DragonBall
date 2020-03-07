@@ -21,17 +21,16 @@ enum update_status
 // Useful typedefs ---------
 typedef unsigned int uint;
 typedef unsigned char uchar;
-//FLIPS....
-#define SDL_FLIP_DIAGONAL (SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+
 // Configuration -----------
 #define SCREEN_SIZE 1
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 720
+#define SCREEN_HEIGHT 720
 #define WIN_FULLSCREEN 0
 #define WIN_FULLSCREEN_DESKTOP 0
 #define WIN_BORDERLESS 0
-#define WIN_RESIZABLE 0
+#define WIN_RESIZABLE 1
 #define REN_VSYNC 1
-#define WIN_TITLE "DBZ"
+#define WIN_TITLE "DBZ-Mission: B.A.T.L"
 
 #endif // __GLOBALS_H__
