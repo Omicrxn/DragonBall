@@ -1,9 +1,9 @@
-#include "Enemy.h"
 #include "Globals.h"
 #include "Game.h"
 #include "TextureManager.h"
 #include "Input.h"
 #include "Render.h"
+#include "Enemy.h"
 
 Enemy::Enemy() {
 	//normal animation
@@ -13,7 +13,7 @@ Enemy::Enemy() {
 	}
 	normal_anim.speed = 0.035f;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		shooting_anim.PushBack({ 70 * i,70,70,70 });
 	}
@@ -33,7 +33,7 @@ bool Enemy::Start() {
 
 
 	//loading player Textures
-	LOG("Loading enemy textures");
+	LOG("Loading player textures");
 	bool ret = true;
 	texture = gGame->textures->Load("Assets/FREEZER_SPRITESHEET.png");
 	if (texture == nullptr) {
@@ -78,7 +78,7 @@ update_status Enemy::Update() {
 
 	SDL_Rect rect = curr_anim->GetCurrentFrame();
 	if (!gGame->render->Blit(texture, pos.x, pos.y, &rect, false)) {
-		LOG("Cannot blit the texture in ModuleEnemy %s\n", SDL_GetError());
+		LOG("Cannot blit the texture in ModulePlayer %s\n", SDL_GetError());
 		status = UPDATE_ERROR;
 	}
 	return status;
@@ -88,6 +88,6 @@ update_status Enemy::Update() {
 // Unload assets
 bool Enemy::CleanUp()
 {
-	LOG("Unloading enemy");
+	LOG("Unloading player");
 	return true;
 }

@@ -13,7 +13,7 @@ Player::Player() {
 	}
 	normal_anim.speed = 0.035f;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		shooting_anim.PushBack({ 70 * i,70,70,70 });
 	}

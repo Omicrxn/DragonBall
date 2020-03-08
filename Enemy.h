@@ -5,16 +5,10 @@
 #include "Globals.h"
 #include "Animation.h"
 
-struct position {
-	int x, y;
-};
 class Enemy : public Module
 {
 private:
-	int initialX = 50, initialY = 50;
-	position pos;
-	bool isLeft;
-	bool isUp;
+	int initialX = 200, initialY = 50;
 public:
 	Enemy();
 	~Enemy();
@@ -30,8 +24,7 @@ public:
 	Animation* curr_anim;
 
 	SDL_Texture* texture = nullptr;
-
+	iPoint pos;
 
 };
 #endif // !__ENEMY_H__
-

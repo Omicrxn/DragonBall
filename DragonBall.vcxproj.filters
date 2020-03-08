@@ -51,7 +51,11 @@
     <ClCompile Include="Audio.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="Enemy.cpp">
+=======
+    <ClCompile Include="Shooting.cpp">
+>>>>>>> Stashed changes
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +96,11 @@
     <ClInclude Include="Audio.h">
       <Filter>Source Files\Modules</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
     <ClInclude Include="Enemy.h">
+=======
+    <ClInclude Include="Shooting.h">
+>>>>>>> Stashed changes
       <Filter>Source Files\Modules</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,16 +4,11 @@
 #include "Globals.h"
 #include "Animation.h"
 
-struct position {
-	int x, y;
-};
+
 class Player : public Module
 {
 private:
 	int initialX = 50, initialY = 50;
-	position pos;
-	bool isLeft;
-	bool isUp;
 public:
 	Player();
 	~Player();
@@ -29,7 +24,7 @@ public:
 	Animation* curr_anim;
 
 	SDL_Texture* texture = nullptr;
-	
+	iPoint pos;
 
 };
 #endif // !__PLAYER_H__
