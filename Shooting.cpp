@@ -1,12 +1,17 @@
 #include "Shooting.h"
 #include "Player.h"
 #include "TextureManager.h"
+#include "Audio.h"
 #include "Render.h"
 Shooting::Shooting() {
 		energyBull.anim.PushBack({ 0,70*3,70,70 });
-	
+		
 	energyBull.anim.speed = 1.0f;
 	energyBull.speed.x = 10;
+
+	kamehameha.anim.PushBack({ 70,140,70,70 });
+	kamehameha.anim.speed = 1.0f;
+	kamehameha.speed.x = 10;
 	
 }
 
@@ -18,7 +23,7 @@ Shooting::~Shooting() {
 bool Shooting::Start() {
 	LOG("Loading particles");
 	text = gGame->textures->Load("Assets/GOKU_SPRITESHEET.png");
-
+	kamehameha.chunk = gGame->audio->LoadFx("Assets/kamehameha.wav");
 	return true;
 }
 
@@ -26,7 +31,8 @@ bool Shooting::Start() {
 bool Shooting::CleanUp()
 {
 	
-
+	LOG("Unloading particles");
+	gGame->audio->UnLoadFx(kamehameha.chunk);
 	gGame->textures->Unload(text);
 	text = nullptr;
 
@@ -63,7 +69,11 @@ update_status Shooting::Update()
 		else if (SDL_GetTicks() >= bullet->spawnTime)
 		{
 			gGame->render->Blit(text, bullet->position.x, bullet->position.y, &(bullet->anim.GetCurrentFrame()),false);
-			
+			if (bullet->chunk_played == false)
+			{
+				bullet->chunk_played = true;
+				gGame->audio->PlayFx(bullet->chunk);
+			}
 		}
 
 	}
@@ -94,7 +104,7 @@ Bullet::Bullet()
 }
 
 Bullet::Bullet(const Bullet& b) :
-	anim(b.anim), position(b.position), speed(b.speed),
+	anim(b.anim), position(b.position), speed(b.speed), chunk(b.chunk),
 	spawnTime(b.spawnTime), damage(b.damage)
 {}
 

@@ -36,7 +36,7 @@ Game::~Game() { //~ symbol means deconstructor
 bool Game::Init() { //parameters that init takes
 	bool ret = true;
 	//Disabling the modules that are not necessary at the beggining
-	//player->Disable();
+	//enemy->Disable();
 
 
 	for (int i = 0; i < NUM_MODULES && ret == true; ++i)

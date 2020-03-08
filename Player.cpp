@@ -14,11 +14,19 @@ Player::Player() {
 	}
 	normal_anim.speed = 0.035f;
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		shooting_anim.PushBack({ 70 * i,70,70,70 });
 	}
 	shooting_anim.speed = 0.05f;
+	shooting_anim.loop = false;
+	for (int i = 2; i < 4; i++)
+	{
+		kamehameha.PushBack({ 70 * i,70,70,70 });
+	}
+	kamehameha.speed = 0.02f;
+	kamehameha.loop = false;
+	
 }
 
 Player::~Player() {
@@ -48,7 +56,9 @@ update_status Player::Update() {
 	update_status status = UPDATE_CONTINUE;
 
 	//Idle handle
-	if (gGame->input->keyboard[SDL_SCANCODE_D] == KEY_IDLE || gGame->input->keyboard[SDL_SCANCODE_A] == KEY_IDLE) {
+	if (gGame->input->keyboard[SDL_SCANCODE_D] == KEY_IDLE && gGame->input->keyboard[SDL_SCANCODE_F] != KEY_REPEAT && 
+		gGame->input->keyboard[SDL_SCANCODE_A] == KEY_IDLE && gGame->input->keyboard[SDL_SCANCODE_SPACE] != KEY_REPEAT &&
+		gGame->input->keyboard[SDL_SCANCODE_S] == KEY_IDLE && gGame->input->keyboard[SDL_SCANCODE_A] == KEY_IDLE) {
 		if (curr_anim != &normal_anim) {
 			curr_anim = &normal_anim;
 			normal_anim.Reset();
@@ -77,12 +87,20 @@ update_status Player::Update() {
 		 }
 		 gGame->shooting->AddBullet(gGame->shooting->energyBull, pos.x + 10, (int)pos.y,2);
 	 }
-	 if (gGame->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
-		 if (curr_anim != &shooting_anim) {
-			 curr_anim = &shooting_anim;
-			 shooting_anim.Reset();
+	 if (gGame->input->keyboard[SDL_SCANCODE_F] == KEY_DOWN) {
+		 if (curr_anim != &kamehameha) {
+			 curr_anim = &kamehameha;
+			 kamehameha.Reset();
 		 }
-		 gGame->shooting->AddBullet(gGame->shooting->energyBull, pos.x + 10, (int)pos.y, 2);
+		
+			 gGame->shooting->AddBullet(gGame->shooting->kamehameha, pos.x + 10 - 540, (int)pos.y - 10, 1000);
+		
+			
+		
+		 
+			
+		 
+		 
 	 }
 	
 	 SDL_Rect rect = curr_anim->GetCurrentFrame();

@@ -21,6 +21,7 @@ public:
 	//Animations
 	Animation normal_anim;
 	Animation shooting_anim;
+	Animation kamehameha;
 	Animation* curr_anim;
 
 	SDL_Texture* texture = nullptr;

@@ -14,6 +14,8 @@ struct Bullet {
 
 	Animation anim;
 	iPoint position;
+	uint chunk = 0;
+	bool chunk_played = false;
 	iPoint speed;
 	Uint32 spawnTime;
 	int damage;
