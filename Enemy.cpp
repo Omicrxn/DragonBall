@@ -4,7 +4,6 @@
 #include "Input.h"
 #include "Render.h"
 #include "Enemy.h"
-#include <stdlib.h>
 
 Enemy::Enemy() {
 	//normal animation
@@ -45,8 +44,7 @@ bool Enemy::Start() {
 	return ret;
 }
 
-int num;
-
+int num = 25;
 
 update_status Enemy::Update() {
 	update_status status = UPDATE_CONTINUE;
@@ -56,21 +54,24 @@ update_status Enemy::Update() {
 		curr_anim = &normal_anim;
 		normal_anim.Reset();
 	}
-
-	num = (rand() % (5 + 5 + 1)) - 5;
-		
 	
+	if (pos.y <= 0)
+	{
+		num = 25;
+	}
+	if (num > 0 && pos.y > SCREEN_HEIGHT / 2)
+	{
+		num = 1;
+	}
+	else if (num < 0 && pos.y < SCREEN_HEIGHT / 2)
+	{
+		num = -1;
+	}
+	if (pos.y >= SCREEN_HEIGHT - 125)
+	{
+		num = -25;
+	}
 	pos.y += num;
-	if (pos.y < 0)
-	{
-		pos.y = SCREEN_HEIGHT - 100;
-	}
-	else if (pos.y > SCREEN_HEIGHT)
-	{
-		pos.y = 100;
-	}
-
-
 
 	SDL_Rect rect = curr_anim->GetCurrentFrame();
 	if (!gGame->render->Blit(texture, pos.x, pos.y, &rect, false)) {
@@ -79,7 +80,6 @@ update_status Enemy::Update() {
 	}
 	return status;
 }
-
 
 // Unload assets
 bool Enemy::CleanUp()
