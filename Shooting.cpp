@@ -3,10 +3,8 @@
 #include "TextureManager.h"
 #include "Render.h"
 Shooting::Shooting() {
-	for (int i = 0; i < 1; i++)
-	{
-		energyBull.anim.PushBack({ 70 * i,0,70,70 });
-	}
+		energyBull.anim.PushBack({ 0,70*3,70,70 });
+	
 	energyBull.anim.speed = 1.0f;
 	energyBull.speed.x = 1;
 	
@@ -53,7 +51,7 @@ update_status Shooting::Update()
 		if (bullet == nullptr)
 			continue;
 
-		if (bullet->position.y < -10 || bullet->position.y > SCREEN_HEIGHT&& bullet != &kamehameha) {
+		if (bullet->position.y < -10 || bullet->position.y > SCREEN_WIDTH) {
 			delete bullet;
 			bullet_arr[i] = nullptr;
 		}
@@ -64,7 +62,7 @@ update_status Shooting::Update()
 		}
 		else if (SDL_GetTicks() >= bullet->spawnTime)
 		{
-			//gGame->render->Blit(text, bullet->position.x, bullet->position.y, &(bullet->anim.GetCurrentFrame()));
+			gGame->render->Blit(text, bullet->position.x, bullet->position.y, &(bullet->anim.GetCurrentFrame()),false);
 			
 		}
 
@@ -109,10 +107,7 @@ bool Bullet::Update()
 		if ((SDL_GetTicks() - spawnTime) > damage)
 			ret = false;
 	}
-	else
-		if (anim.Finished())
-			ret = false;
-
+	
 	if (!SDL_GetTicks() - spawnTime > 0) {
 		position.x += speed.x;
 		position.y += speed.y;

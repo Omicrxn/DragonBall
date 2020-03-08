@@ -70,12 +70,12 @@ update_status Player::Update() {
 		 pos.y += 5;
 	 }
 
-	 if (gGame->input->keyboard[SDL_SCANCODE_SPACE] == KEY_REPEAT) {
+	 if (gGame->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
 		 if (curr_anim != &shooting_anim) {
 			 curr_anim = &shooting_anim;
 			 shooting_anim.Reset();
 		 }
-		 gGame->shooting->AddBullet(gGame->shooting->energyBull, pos.x + 8, pos.y - 40,3);
+		 gGame->shooting->AddBullet(gGame->shooting->energyBull, pos.x + 10, (int)pos.y,2);
 	 }
 	
 	 SDL_Rect rect = curr_anim->GetCurrentFrame();

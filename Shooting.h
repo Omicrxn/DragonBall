@@ -9,7 +9,7 @@
 #include "Module.h"
 #include "SDL.h"
 
-#define MAX_BULLETS 20
+#define MAX_BULLETS 200
 struct Bullet {
 
 	Animation anim;

@@ -39,7 +39,7 @@ bool Enemy::Start() {
 	if (texture == nullptr) {
 		ret = false;
 	}
-
+	pos.x = initialX;
 
 	return ret;
 }

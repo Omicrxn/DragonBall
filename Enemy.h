@@ -8,7 +8,7 @@
 class Enemy : public Module
 {
 private:
-	int initialX = 200, initialY = 50;
+	int initialX = SCREEN_WIDTH-100, initialY = 50;
 public:
 	Enemy();
 	~Enemy();
