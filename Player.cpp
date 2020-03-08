@@ -55,19 +55,19 @@ update_status Player::Update() {
 		}
 	}
      if (gGame->input->keyboard[SDL_SCANCODE_D] == KEY_REPEAT && pos.x < SCREEN_WIDTH - 125) {
-		 pos.x += 5;
+		 pos.x += 10;
 	}
 	 if (gGame->input->keyboard[SDL_SCANCODE_A] == KEY_REPEAT && pos.x > 0) {
-		 pos.x -= 5;
+		 pos.x -= 10;
 	}
 
 	 if (gGame->input->keyboard[SDL_SCANCODE_W] == KEY_REPEAT && pos.y > 0)
 	 {
-		 pos.y -=5;
+		 pos.y -=10;
 	 }
 	 if (gGame->input->keyboard[SDL_SCANCODE_S] == KEY_REPEAT && pos.y < SCREEN_HEIGHT - 125)
 	 {
-		 pos.y += 5;
+		 pos.y += 10;
 	 }
 
 	 if (gGame->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
@@ -76,6 +76,13 @@ update_status Player::Update() {
 			 shooting_anim.Reset();
 		 }
 		 gGame->shooting->AddBullet(gGame->shooting->energyBull, pos.x + 10, (int)pos.y,2);
+	 }
+	 if (gGame->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
+		 if (curr_anim != &shooting_anim) {
+			 curr_anim = &shooting_anim;
+			 shooting_anim.Reset();
+		 }
+		 gGame->shooting->AddBullet(gGame->shooting->energyBull, pos.x + 10, (int)pos.y, 2);
 	 }
 	
 	 SDL_Rect rect = curr_anim->GetCurrentFrame();

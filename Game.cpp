@@ -8,6 +8,7 @@
 #include "Audio.h"
 #include "Shooting.h"
 #include "Enemy.h"
+#include "Menu.h"
 
 Game::Game() { //Constructor
 	//stores inside the modules array all the modules and at the same time initializes them
@@ -21,6 +22,7 @@ Game::Game() { //Constructor
 	modules[i++] = player = new Player();
 	modules[i++] = enemy = new Enemy();
 	modules[i++] = shooting = new Shooting();
+	modules[i++] = menu = new Menu();
 	
 	
 }	

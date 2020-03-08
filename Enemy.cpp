@@ -46,24 +46,20 @@ bool Enemy::Start() {
 }
 
 int num;
-int frames = 0;
+
 
 update_status Enemy::Update() {
 	update_status status = UPDATE_CONTINUE;
 
 	//Idle handle
-	if (gGame->input->keyboard[SDL_SCANCODE_D] == KEY_IDLE || gGame->input->keyboard[SDL_SCANCODE_A] == KEY_IDLE) {
-		if (curr_anim != &normal_anim) {
-			curr_anim = &normal_anim;
-			normal_anim.Reset();
-		}
+	if (curr_anim != &normal_anim) {
+		curr_anim = &normal_anim;
+		normal_anim.Reset();
 	}
 
-	if (frames == 50)
-	{
-		num = (rand() % (5 + 5 + 1)) - 5;
-		frames = 0;
-	}
+	num = (rand() % (5 + 5 + 1)) - 5;
+		
+	
 	pos.y += num;
 	if (pos.y < 0)
 	{
@@ -73,14 +69,8 @@ update_status Enemy::Update() {
 	{
 		pos.y = 100;
 	}
-	frames++;
 
-	if (gGame->input->keyboard[SDL_SCANCODE_SPACE] == KEY_REPEAT) {
-		if (curr_anim != &shooting_anim) {
-			curr_anim = &shooting_anim;
-			shooting_anim.Reset();
-		}
-	}
+
 
 	SDL_Rect rect = curr_anim->GetCurrentFrame();
 	if (!gGame->render->Blit(texture, pos.x, pos.y, &rect, false)) {
