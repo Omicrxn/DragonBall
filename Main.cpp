@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Globals.h"
 #include <iostream>
+
 Uint32 startTime=SDL_GetTicks(),finalTime = 0;
 double dt = 0;
 enum STATES {

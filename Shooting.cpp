@@ -6,7 +6,7 @@ Shooting::Shooting() {
 		energyBull.anim.PushBack({ 0,70*3,70,70 });
 	
 	energyBull.anim.speed = 1.0f;
-	energyBull.speed.x = 1;
+	energyBull.speed.x = 10;
 	
 }
 

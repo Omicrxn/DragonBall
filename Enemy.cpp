@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Enemy.h"
+#include <stdlib.h>
 
 Enemy::Enemy() {
 	//normal animation
@@ -35,7 +36,7 @@ bool Enemy::Start() {
 	//loading player Textures
 	LOG("Loading player textures");
 	bool ret = true;
-	texture = gGame->textures->Load("Assets/FREEZER_SPRITESHEET.png");
+	texture = gGame->textures->Load("Assets/FREEZER_SPRITESHEET_INVERTED.png");
 	if (texture == nullptr) {
 		ret = false;
 	}
@@ -43,6 +44,10 @@ bool Enemy::Start() {
 
 	return ret;
 }
+
+int num;
+int frames = 0;
+
 update_status Enemy::Update() {
 	update_status status = UPDATE_CONTINUE;
 
@@ -53,21 +58,22 @@ update_status Enemy::Update() {
 			normal_anim.Reset();
 		}
 	}
-	if (gGame->input->keyboard[SDL_SCANCODE_D] == KEY_REPEAT && pos.x < SCREEN_WIDTH - 125) {
-		pos.x += 5;
-	}
-	if (gGame->input->keyboard[SDL_SCANCODE_A] == KEY_REPEAT && pos.x > 0) {
-		pos.x -= 5;
-	}
 
-	if (gGame->input->keyboard[SDL_SCANCODE_W] == KEY_REPEAT && pos.y > 0)
+	if (frames == 50)
 	{
-		pos.y -= 5;
+		num = (rand() % (5 + 5 + 1)) - 5;
+		frames = 0;
 	}
-	if (gGame->input->keyboard[SDL_SCANCODE_S] == KEY_REPEAT && pos.y < SCREEN_HEIGHT - 125)
+	pos.y += num;
+	if (pos.y < 0)
 	{
-		pos.y += 5;
+		pos.y = SCREEN_HEIGHT - 100;
 	}
+	else if (pos.y > SCREEN_HEIGHT)
+	{
+		pos.y = 100;
+	}
+	frames++;
 
 	if (gGame->input->keyboard[SDL_SCANCODE_SPACE] == KEY_REPEAT) {
 		if (curr_anim != &shooting_anim) {
