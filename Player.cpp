@@ -47,25 +47,24 @@ update_status Player::Update() {
 			normal_anim.Reset();
 		}
 	}
-     if (gGame->input->keyboard[SDL_SCANCODE_D] == KEY_REPEAT) {
+     if (gGame->input->keyboard[SDL_SCANCODE_D] == KEY_REPEAT && pos.x < SCREEN_WIDTH - 125) {
 		 pos.x += 5;
 	}
-	 if (gGame->input->keyboard[SDL_SCANCODE_A] == KEY_REPEAT ) {
+	 if (gGame->input->keyboard[SDL_SCANCODE_A] == KEY_REPEAT && pos.x > 0) {
 		 pos.x -= 5;
 	}
 
-	 if (gGame->input->keyboard[SDL_SCANCODE_W] == KEY_REPEAT )
+	 if (gGame->input->keyboard[SDL_SCANCODE_W] == KEY_REPEAT && pos.y > 0)
 	 {
 		 pos.y -=5;
 	 }
-	 if (gGame->input->keyboard[SDL_SCANCODE_S] == KEY_REPEAT )
+	 if (gGame->input->keyboard[SDL_SCANCODE_S] == KEY_REPEAT && pos.y < SCREEN_HEIGHT - 125)
 	 {
 		 pos.y += 5;
 	 }
 
 	 if (gGame->input->keyboard[SDL_SCANCODE_S] == KEY_REPEAT) {
 	 }
-	
 	
 	 SDL_Rect rect = curr_anim->GetCurrentFrame();
 	if (!gGame->render->Blit(texture,pos.x,pos.y,&rect,false)) {
