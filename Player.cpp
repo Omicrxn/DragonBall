@@ -12,6 +12,12 @@ Player::Player() {
 		normal_anim.PushBack({ 70 * i,0,70,70 });
 	}
 	normal_anim.speed = 0.035f;
+
+	for (int i = 0; i < 3; i++)
+	{
+		shooting_anim.PushBack({ 70 * i,70,70,70 });
+	}
+	shooting_anim.speed = 0.05f;
 }
 
 Player::~Player() {
@@ -63,7 +69,11 @@ update_status Player::Update() {
 		 pos.y += 5;
 	 }
 
-	 if (gGame->input->keyboard[SDL_SCANCODE_S] == KEY_REPEAT) {
+	 if (gGame->input->keyboard[SDL_SCANCODE_SPACE] == KEY_REPEAT) {
+		 if (curr_anim != &shooting_anim) {
+			 curr_anim = &shooting_anim;
+			 shooting_anim.Reset();
+		 }
 	 }
 	
 	 SDL_Rect rect = curr_anim->GetCurrentFrame();
