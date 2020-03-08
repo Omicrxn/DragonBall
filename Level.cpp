@@ -5,6 +5,7 @@
 #include "Level.h"
 #include "TextureManager.h"
 #include "Audio.h"
+#include "Input.h"
 
 Level::Level() {
 
@@ -33,11 +34,16 @@ bool Level::Start() {
 
 update_status Level::Update() {
 	update_status status = UPDATE_CONTINUE;
+	
 	if (!gGame->render->Blit(texture, 0, 0, &src,true)) {
 		LOG("Cannot blit the texture in ModulePlayer %s\n", SDL_GetError());
 		status = UPDATE_ERROR;
 	}
 
+	if (gGame->input->keyboard[SDL_SCANCODE_M] == KEY_DOWN) {
+		gGame->audio->PauseMusic();
+		
+	}
 	return status;
 }
 

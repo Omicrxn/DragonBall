@@ -5,7 +5,7 @@
 
 Audio::Audio()
 {
-
+	isPaused = false;
 }
 
 Audio::~Audio()
@@ -35,7 +35,7 @@ bool Audio::Init()
 	}
 
 	//Initialize SDL_mixer
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 2048) < 0)
 	{
 		LOG("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 		ret = false;
@@ -64,7 +64,7 @@ bool Audio::CleanUp()
 bool Audio::PlayMusic(const char* path, float fade_time)
 {
 	bool ret = true;
-
+	
 	music = Mix_LoadMUS(path);
 
 	if (music == NULL)
@@ -93,6 +93,26 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 	}
 
 	LOG("Successfully playing %s", path);
+	return ret;
+}
+
+bool Audio::PauseMusic() {
+
+	bool ret = true;
+	//If the music is paused
+	if (Mix_PausedMusic() == 1)
+	{
+		//Resume the music
+		Mix_ResumeMusic();
+	}
+	//If the music is playing
+	else
+	{
+		//Pause the music
+		Mix_PauseMusic();
+	}
+	
+
 	return ret;
 }
 
