@@ -79,7 +79,5 @@ update_status Player::Update() {
 bool Player::CleanUp()
 {
 	LOG("Unloading player");
-	LOG("Unloading player Audio");
-	//TODO: unload player Audio
 	return true;
 }

@@ -5,7 +5,7 @@
 
 Audio::Audio()
 {
-	isPaused = false;
+	
 }
 
 Audio::~Audio()
