@@ -1,5 +1,6 @@
-#ifndef __PLAYER_H__
-#define __PLAYER_H__
+#pragma once
+#ifndef __ENEMY_H__
+#define __ENEMY_H__
 #include "Module.h"
 #include "Globals.h"
 #include "Animation.h"
@@ -7,7 +8,7 @@
 struct position {
 	int x, y;
 };
-class Player : public Module
+class Enemy : public Module
 {
 private:
 	int initialX = 50, initialY = 50;
@@ -15,8 +16,8 @@ private:
 	bool isLeft;
 	bool isUp;
 public:
-	Player();
-	~Player();
+	Enemy();
+	~Enemy();
 
 	bool Init();
 	bool Start();
@@ -29,7 +30,8 @@ public:
 	Animation* curr_anim;
 
 	SDL_Texture* texture = nullptr;
-	
+
 
 };
-#endif // !__PLAYER_H__
+#endif // !__ENEMY_H__
+
