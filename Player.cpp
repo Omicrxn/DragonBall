@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Player.h"
+#include "Shooting.h"
 
 Player::Player() {
 	//normal animation
@@ -74,6 +75,7 @@ update_status Player::Update() {
 			 curr_anim = &shooting_anim;
 			 shooting_anim.Reset();
 		 }
+		 gGame->shooting->AddBullet(gGame->shooting->energyBull, pos.x + 8, pos.y - 40,3);
 	 }
 	
 	 SDL_Rect rect = curr_anim->GetCurrentFrame();

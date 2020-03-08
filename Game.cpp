@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "Audio.h"
+#include "Shooting.h"
 #include "Enemy.h"
 
 Game::Game() { //Constructor
@@ -17,8 +18,9 @@ Game::Game() { //Constructor
 	modules[i++] = audio = new Audio();
 	modules[i++] = textures = new TextureManager();
 	modules[i++] = level = new Level();
-	modules[i++] = player = new Enemy();
+	modules[i++] = player = new Player();
 	modules[i++] = enemy = new Enemy();
+	modules[i++] = shooting = new Shooting();
 	
 	
 }	
