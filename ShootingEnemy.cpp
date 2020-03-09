@@ -21,7 +21,7 @@ ShootingEnemy::~ShootingEnemy() {
 bool ShootingEnemy::Start() {
 	LOG("Loading particles");
 	text = gGame->textures->Load("Assets/FREEZER_SPRITESHEET_INVERTED.png");
-	
+	energyBull.chunk = gGame->audio->LoadFx("Assets/frieza_shoot.wav");
 	return true;
 }
 
@@ -31,6 +31,7 @@ bool ShootingEnemy::CleanUp()
 
 	LOG("Unloading particles");
 	gGame->textures->Unload(text);
+	gGame->audio->UnLoadFx(energyBull.chunk);
 	text = nullptr;
 
 	for (uint i = 0; i < MAX_BULLETS; ++i)

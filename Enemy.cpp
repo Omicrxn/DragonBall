@@ -8,6 +8,7 @@
 #include "Menu.h"
 #include "Enemy.h"
 #include <iostream>
+#include "Audio.h"
 
 Enemy::Enemy() {
 	//normal animation
@@ -34,7 +35,6 @@ Enemy::Enemy() {
 
 	//damage anim
 	damage_anim.PushBack({ 70 * 4,140,70,70 });
-
 	damage_anim.speed = 0.03f;
 	damage_anim.loop = false;
 
@@ -106,6 +106,7 @@ update_status Enemy::Update() {
 	if (shoot == 3 && curr_state != DEAD && curr_state != DAMAGED) {
 		curr_state = SHOOTING;
 		gGame->shootingEnemy->AddBullet(gGame->shootingEnemy->energyBull, pos.x - 10, (int)pos.y, 2);
+		gGame->audio->PlayFx(gGame->audio->LoadFx("Assets/frieza_shoot.wav"));
 		otra = 0;
 	}
 	else if (otra == 50 && curr_state != DEAD){
@@ -125,6 +126,8 @@ update_status Enemy::Update() {
 	case DAMAGED:
 		if (curr_anim != &damage_anim) {
 			curr_anim = &damage_anim;
+			SDL_Delay(300);
+			curr_state = IDLE;
 			damage_anim.Reset();
 		}
 		break;
@@ -157,7 +160,7 @@ int Enemy::getLife() {
 	return life;
 }
 void Enemy::Damage(int damage) {
-	//curr_state = DAMAGED;
+	curr_state = DAMAGED;
 	life -= damage;
 	if (life <= 0) {
 		life = 0;

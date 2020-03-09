@@ -26,6 +26,7 @@ bool Shooting::Start() {
 	LOG("Loading particles");
 	text = gGame->textures->Load("Assets/GOKU_SPRITESHEET.png");
 	kamehameha.chunk = gGame->audio->LoadFx("Assets/kamehameha.wav");
+	energyBull.chunk = gGame->audio->LoadFx("Assets/goku_shoot.wav");
 	return true;
 }
 
@@ -35,6 +36,7 @@ bool Shooting::CleanUp()
 	
 	LOG("Unloading particles");
 	gGame->audio->UnLoadFx(kamehameha.chunk);
+	gGame->audio->UnLoadFx(energyBull.chunk);
 	gGame->textures->Unload(text);
 	text = nullptr;
 

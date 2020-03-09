@@ -110,6 +110,7 @@ update_status Player::Update() {
 				shooting_anim.Reset();
 			}
 			gGame->shooting->AddBullet(gGame->shooting->energyBull, pos.x + 10, (int)pos.y, 2);
+			gGame->audio->PlayFx(gGame->audio->LoadFx("Assets/goku_shoot.wav"));
 		}
 		if (gGame->input->keyboard[SDL_SCANCODE_F] == KEY_DOWN) {
 			int curr_time = SDL_GetTicks();
