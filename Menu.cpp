@@ -50,6 +50,10 @@ update_status Menu::Update()
 		gGame->transition->TransitionStart(this, gGame->level);
 	}
 
+	if (gGame->input->keyboard[SDL_SCANCODE_M] == KEY_DOWN) {
+		gGame->audio->PauseMusic();
+
+	}
 	update_status status = UPDATE_CONTINUE;
 
 	if (!gGame->render->Blit(texture, 0, 0, &(menu_anim.GetCurrentFrame()), true))

@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Shooting.h"
 #include "Audio.h"
+#include <iostream>
 
 Player::Player() {
 	//normal animation
@@ -109,7 +110,7 @@ update_status Player::Update() {
 		 gGame->shooting->AddBullet(gGame->shooting->kamehameha, pos.x + 10-2460, (int)pos.y - 10, 4100);
 	 }
 	
-	 SDL_Rect rect = curr_anim->GetCurrentFrame();
+	SDL_Rect rect = curr_anim->GetCurrentFrame();
 	if (!gGame->render->Blit(texture,pos.x,pos.y,&rect,false)) {
 		LOG("Cannot blit the texture in ModulePlayer %s\n", SDL_GetError());
 		status = UPDATE_ERROR;
@@ -117,7 +118,18 @@ update_status Player::Update() {
 	return status;
 }
 
+void Player::Damage(int damage) {
+	curr_state = xDAMAGED;
+	life -= damage;
+	if (life <= 0) {
+		life = 0;
+	}
+	if (life == 0) {
+		curr_state = xDEAD;
+	}
 
+	std::cout << "Player: " << life << std::endl;
+}
 // Unload assets
 bool Player::CleanUp()
 {

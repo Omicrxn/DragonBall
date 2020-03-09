@@ -73,9 +73,9 @@ update_status ShootingEnemy::Update()
 			}*/
 		}
 		
-		if (bullet->position.x == gGame->enemy->pos.x && bullet->position.y >= gGame->enemy->pos.y && bullet->position.y <= gGame->enemy->pos.y + 120) {
+		if (bullet->position.x == gGame->player->pos.x+120 && bullet->position.y >= gGame->player->pos.y && bullet->position.y <= gGame->player->pos.y + 120) {
 
-			gGame->enemy->Damage(10);
+			gGame->player->Damage(10);
 		}
 	}
 	return UPDATE_CONTINUE;
