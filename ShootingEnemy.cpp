@@ -66,11 +66,11 @@ update_status ShootingEnemy::Update()
 		else if (SDL_GetTicks() >= bullet->spawnTime)
 		{
 			gGame->render->Blit(text, bullet->position.x, bullet->position.y, &(bullet->anim.GetCurrentFrame()), false);
-			/*if (bullet->chunk_played == false)
+			if (bullet->chunk_played == false)
 			{
 				bullet->chunk_played = true;
 
-			}*/
+			}
 		}
 		
 		if (bullet->position.x == gGame->player->pos.x+120 && bullet->position.y >= gGame->player->pos.y && bullet->position.y <= gGame->player->pos.y + 120) {

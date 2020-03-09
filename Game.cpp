@@ -41,6 +41,8 @@ bool Game::Init() { //parameters that init takes
 	bool ret = true;
 	//Disabling the modules that are not necessary at the beggining
 	level->Disable();
+	enemy->Disable();
+	player->Disable();
 	
 
 

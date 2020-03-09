@@ -37,7 +37,9 @@ bool Menu::Start()
 
 	LOG("Loading audio fx for start");
 	start_audio = gGame->audio->LoadFx("Assets/start.wav");
-
+	gGame->level->Disable();
+	gGame->level->CleanUp();
+	
 	return ret;
 }
 

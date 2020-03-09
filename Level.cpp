@@ -6,6 +6,8 @@
 #include "TextureManager.h"
 #include "Audio.h"
 #include "Input.h"
+#include "Player.h"
+#include "Enemy.h"
 
 Level::Level() {
 
@@ -19,7 +21,7 @@ Level::~Level() {
 
 bool Level::Start() {
 	bool ret = true;
-
+	
 	gGame->audio->PlayMusic("Assets/battle.mp3");
 	texture = gGame->textures->Load("Assets/background.jpg");
 	if (texture == nullptr) {
@@ -29,6 +31,10 @@ bool Level::Start() {
 	src.w = 1750;
 	src.h = 1750;
 	src.x = src.y = 0;
+	gGame->player->Enable();
+	gGame->enemy->Enable();
+	gGame->player->Start();
+	gGame->enemy->Start();
 	return ret;
 }
 
@@ -51,6 +57,10 @@ bool Level::CleanUp()
 {
 	LOG("Unloading SceneForest");
 	gGame->audio->Disable();
+	gGame->enemy->Disable();
+	gGame->player->Disable();
+	gGame->enemy->CleanUp();
+	gGame->player->CleanUp();
 	bool ret = true;
 
 	return ret;
