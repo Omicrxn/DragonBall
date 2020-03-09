@@ -4,6 +4,9 @@
 #include "Globals.h"
 #include "Animation.h"
 
+enum xSTATE {
+	xIDLE, xDAMAGED, xDEAD, xSHOOTING
+};
 
 class Player : public Module
 {
@@ -17,6 +20,7 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void Damage(int damage);
 
 	//Animations
 	Animation normal_anim;
@@ -26,10 +30,11 @@ public:
 	Animation kamehameha;
 	Animation* curr_anim;
 
-	int life = 100;
+	xSTATE curr_state = xIDLE;
 
 	SDL_Texture* texture = nullptr;
 	iPoint pos;
 
+	int life = 100;
 };
 #endif // !__PLAYER_H__

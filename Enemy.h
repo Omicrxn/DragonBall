@@ -5,7 +5,6 @@
 #include "Globals.h"
 #include "Animation.h"
 
-
 enum STATE {
 	IDLE, DAMAGED, DEAD,SHOOTING
 };
@@ -36,6 +35,7 @@ public:
 
 	SDL_Texture* texture = nullptr;
 	iPoint pos;
+
 	int life = 100;
 
 };

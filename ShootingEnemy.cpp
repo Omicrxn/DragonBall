@@ -3,6 +3,8 @@
 #include "TextureManager.h"
 #include "Audio.h"
 #include "Render.h"
+#include "Enemy.h"
+
 ShootingEnemy::ShootingEnemy() {
 	energyBull.anim.PushBack({ 0,280,70,70 });
 
@@ -71,9 +73,10 @@ update_status ShootingEnemy::Update()
 			}*/
 		}
 		
+		if (bullet->position.x == gGame->enemy->pos.x && bullet->position.y >= gGame->enemy->pos.y && bullet->position.y <= gGame->enemy->pos.y + 120) {
 
-
-
+			gGame->enemy->Damage(10);
+		}
 	}
 	return UPDATE_CONTINUE;
 }

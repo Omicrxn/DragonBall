@@ -4,6 +4,7 @@
 #include "Audio.h"
 #include "Enemy.h"
 #include "Render.h"
+
 Shooting::Shooting() {
 		energyBull.anim.PushBack({ 0,70*3,70,70 });
 		
@@ -76,14 +77,11 @@ update_status Shooting::Update()
 				
 			}
 		}
+
 		if (bullet->position.x == gGame->enemy->pos.x && bullet->position.y >= gGame->enemy->pos.y && bullet->position.y <= gGame->enemy->pos.y + 120) {
 			
 			gGame->enemy->Damage(10);
 		}
-		
-
-		
-
 	}
 	return UPDATE_CONTINUE;
 }
