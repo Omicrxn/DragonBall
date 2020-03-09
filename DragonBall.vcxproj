@@ -155,6 +155,7 @@
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Shooting.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Transition.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="Render.h" />
     <ClInclude Include="Shooting.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Transition.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Player.h"
 #include "Shooting.h"
+#include "Audio.h"
 
 Player::Player() {
 	//normal animation
@@ -24,7 +25,7 @@ Player::Player() {
 	{
 		kamehameha.PushBack({ 70 * i,70,70,70 });
 	}
-	kamehameha.speed = 0.02f;
+	kamehameha.speed = 0.004f;
 	kamehameha.loop = false;
 	
 }
@@ -88,19 +89,13 @@ update_status Player::Update() {
 		 gGame->shooting->AddBullet(gGame->shooting->energyBull, pos.x + 10, (int)pos.y,2);
 	 }
 	 if (gGame->input->keyboard[SDL_SCANCODE_F] == KEY_DOWN) {
+		 int curr_time = SDL_GetTicks();
 		 if (curr_anim != &kamehameha) {
 			 curr_anim = &kamehameha;
 			 kamehameha.Reset();
 		 }
-		
-			 gGame->shooting->AddBullet(gGame->shooting->kamehameha, pos.x + 10 - 540, (int)pos.y - 10, 1000);
-		
-			
-		
-		 
-			
-		 
-		 
+		 gGame->audio->PlayFx(gGame->audio->LoadFx("Assets/kamehameha.wav"));
+			 gGame->shooting->AddBullet(gGame->shooting->kamehameha, pos.x + 10-2460, (int)pos.y - 10, 4100);
 	 }
 	
 	 SDL_Rect rect = curr_anim->GetCurrentFrame();

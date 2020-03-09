@@ -72,7 +72,7 @@ update_status Shooting::Update()
 			if (bullet->chunk_played == false)
 			{
 				bullet->chunk_played = true;
-				gGame->audio->PlayFx(bullet->chunk);
+				
 			}
 		}
 

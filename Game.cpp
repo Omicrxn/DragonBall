@@ -8,6 +8,7 @@
 #include "Audio.h"
 #include "Shooting.h"
 #include "Enemy.h"
+#include "Transition.h"
 #include "Menu.h"
 
 Game::Game() { //Constructor
@@ -23,6 +24,7 @@ Game::Game() { //Constructor
 	modules[i++] = enemy = new Enemy();
 	modules[i++] = shooting = new Shooting();
 	modules[i++] = menu = new Menu();
+	modules[i++] = transition = new Transition();
 	
 	
 }	
@@ -36,7 +38,8 @@ Game::~Game() { //~ symbol means deconstructor
 bool Game::Init() { //parameters that init takes
 	bool ret = true;
 	//Disabling the modules that are not necessary at the beggining
-	//enemy->Disable();
+	level->Disable();
+	
 
 
 	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
