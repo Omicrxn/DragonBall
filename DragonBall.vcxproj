@@ -154,6 +154,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Shooting.cpp" />
+    <ClCompile Include="ShootingEnemy.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transition.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="PointOperations.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Shooting.h" />
+    <ClInclude Include="ShootingEnemy.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transition.h" />
     <ClInclude Include="Window.h" />

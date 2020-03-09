@@ -7,6 +7,7 @@
 #include "Level.h"
 #include "Audio.h"
 #include "Shooting.h"
+#include "ShootingEnemy.h"
 #include "Enemy.h"
 #include "Transition.h"
 #include "Menu.h"
@@ -23,6 +24,7 @@ Game::Game() { //Constructor
 	modules[i++] = player = new Player();
 	modules[i++] = enemy = new Enemy();
 	modules[i++] = shooting = new Shooting();
+	modules[i++] = shootingEnemy = new ShootingEnemy();
 	modules[i++] = menu = new Menu();
 	modules[i++] = transition = new Transition();
 	

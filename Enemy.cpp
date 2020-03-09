@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include "Input.h"
 #include "Render.h"
+#include "ShootingEnemy.h"
 #include "Enemy.h"
 #include <iostream>
 
@@ -13,17 +14,27 @@ Enemy::Enemy() {
 		normal_anim.PushBack({ 70 * i,0,70,70 });
 	}
 	normal_anim.speed = 0.035f;
-
-	for (int i = 0; i < 2; i++)
-	{
-		shooting_anim.PushBack({ 70 * i,70,70,70 });
-	}
+	//SHOOTING ANIM
+	
+		shooting_anim.PushBack({ 140,210,70,70 });
+	
 	shooting_anim.speed = 0.05f;
 
-	
-		damage_anim.PushBack({ 70 * 4,140,70,70 });
 
-	damage_anim.speed = 0.001f;
+	//DEAD ANIM
+	for (int i = 5; i >= 0; i--)
+	{
+		dead_anim.PushBack({ 70 * i,140,70,70 });
+	}
+	dead_anim.speed = 0.05;
+	dead_anim.loop = false;
+
+
+	//damage anim
+	damage_anim.PushBack({ 70 * 4,140,70,70 });
+
+	damage_anim.speed = 0.2f;
+	damage_anim.loop = false;
 
 }
 
@@ -53,41 +64,71 @@ bool Enemy::Start() {
 }
 
 int num = 18;
+int otra = 0;
 
 update_status Enemy::Update() {
 	update_status status = UPDATE_CONTINUE;
+	int shoot = rand() % (40 - 0 + 1);
 
-	//Idle handle
 	
-	if (pos.y <= 0)
-	{
-		num = 18;
-	}
-	if (num > 0 && pos.y > SCREEN_HEIGHT / 2)
-	{
-		num = 5;
-	}
-	else if (num < 0 && pos.y < SCREEN_HEIGHT / 2)
-	{
-		num = -5;
-	}
-	if (pos.y >= SCREEN_HEIGHT - 125)
-	{
-		num = -18;
-	}
-	pos.y += num;
 
+	if (curr_state == IDLE || curr_state == SHOOTING) {
+		if (pos.y <= 0)
+		{
+			num = 18;
+		}
+		if (num > 0 && pos.y > SCREEN_HEIGHT / 2)
+		{
+			num = 5;
+		}
+		else if (num < 0 && pos.y < SCREEN_HEIGHT / 2)
+		{
+			num = -5;
+		}
+		if (pos.y >= SCREEN_HEIGHT - 125)
+		{
+			num = -18;
+		}
+		pos.y += num;
+	}
+
+
+	if (shoot == 3 && curr_state != DEAD) {
+		curr_state = SHOOTING;
+		gGame->shootingEnemy->AddBullet(gGame->shootingEnemy->energyBull, pos.x - 10, (int)pos.y, 2);
+		otra = 0;
+	}
+	else if (otra == 50 && curr_state != DEAD){
+		curr_state = IDLE;
+	}
+	otra++;
+	//STATE MACHINE
 	switch (curr_state) {
 	case IDLE:
 		if (curr_anim != &normal_anim) {
 			curr_anim = &normal_anim;
 			normal_anim.Reset();
 		}
+		
 		break;
 	case DAMAGED:
 		if (curr_anim != &damage_anim) {
 			curr_anim = &damage_anim;
 			damage_anim.Reset();
+		}
+		break;
+	case DEAD:
+		if (curr_anim != &dead_anim) {
+			curr_anim = &dead_anim;
+			dead_anim.Reset();
+		}
+		break;
+
+	case SHOOTING:
+		//shooting
+		if (curr_anim != &shooting_anim) {
+			curr_anim = &shooting_anim;
+			shooting_anim.Reset();
 		}
 		break;
 	}
@@ -109,6 +150,14 @@ void Enemy::Damage(int damage) {
 	if (life <= 0) {
 		life = 0;
 	}
+	if (life == 0) {
+		curr_state = DEAD;
+	}
+	else {
+		curr_state = IDLE;
+	}
+	
+	std::cout << "Enemy: " << life << std::endl;
 }
 
 // Unload assets

@@ -1,7 +1,6 @@
 #pragma once
-#ifndef __Shooting_h__
-#define __Shooting_h__
-
+#ifndef __ShootingEnemy_h__
+#define __ShootingEnemy_h__
 
 #include "Game.h"
 #include "Animation.h"
@@ -10,7 +9,7 @@
 #include "SDL.h"
 
 #define MAX_BULLETS 200
-struct Bullet {
+struct BulletEnemy {
 
 	Animation anim;
 	iPoint position;
@@ -18,36 +17,34 @@ struct Bullet {
 	bool chunk_played = false;
 	iPoint speed;
 	Uint32 spawnTime;
-	int damage;
+	Uint32 damage;
 
-	Bullet();
+	BulletEnemy();
 
-	Bullet(const Bullet& bullet);
-	~Bullet();
+	BulletEnemy(const BulletEnemy& bullet);
+	~BulletEnemy();
 	bool Update();
 };
 
-class Shooting : public Module {
+class ShootingEnemy : public Module {
 public:
-	Shooting();
-	~Shooting();
+	ShootingEnemy();
+	~ShootingEnemy();
 
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-	void AddBullet(const Bullet &bullet, int x,int y,Uint32 delay);
-	
+	void AddBullet(const BulletEnemy& bullet, int x, int y, Uint32 delay);
+
 private:
 	SDL_Texture* text = nullptr;
-	Bullet* bullet_arr[MAX_BULLETS];
+	BulletEnemy* bullet_arr[MAX_BULLETS];
 	int last_bullet = 0;
 public:
-	Bullet kamehameha;
-	Bullet energyBull;
+	BulletEnemy energyBull;
 
 	bool enemy_touched;
 };
 
 
-#endif //__Shooting_h__
-
+#endif //__ShootingEnemy_h__

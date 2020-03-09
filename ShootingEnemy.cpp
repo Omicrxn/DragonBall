@@ -1,39 +1,33 @@
-#include "Shooting.h"
+#include "ShootingEnemy.h"
 #include "Player.h"
 #include "TextureManager.h"
 #include "Audio.h"
-#include "Enemy.h"
 #include "Render.h"
-Shooting::Shooting() {
-		energyBull.anim.PushBack({ 0,70*3,70,70 });
-		
+ShootingEnemy::ShootingEnemy() {
+	energyBull.anim.PushBack({ 0,280,70,70 });
+
 	energyBull.anim.speed = 1.0f;
-	energyBull.speed.x = 10;
+	energyBull.speed.x = -10;
 
-	kamehameha.anim.PushBack({ 70,140,70,70 });
-	kamehameha.anim.speed = 1.0f;
-	kamehameha.speed.x = 10;
-	
 }
 
-Shooting::~Shooting() {
+ShootingEnemy::~ShootingEnemy() {
 
 }
 
 
-bool Shooting::Start() {
+bool ShootingEnemy::Start() {
 	LOG("Loading particles");
-	text = gGame->textures->Load("Assets/GOKU_SPRITESHEET.png");
-	kamehameha.chunk = gGame->audio->LoadFx("Assets/kamehameha.wav");
+	text = gGame->textures->Load("Assets/FREEZER_SPRITESHEET_INVERTED.png");
+	
 	return true;
 }
 
 // Unload assets
-bool Shooting::CleanUp()
+bool ShootingEnemy::CleanUp()
 {
-	
+
 	LOG("Unloading particles");
-	gGame->audio->UnLoadFx(kamehameha.chunk);
 	gGame->textures->Unload(text);
 	text = nullptr;
 
@@ -49,11 +43,11 @@ bool Shooting::CleanUp()
 }
 
 // Update: draw background
-update_status Shooting::Update()
+update_status ShootingEnemy::Update()
 {
 	for (uint i = 0; i < MAX_BULLETS; ++i)
 	{
-		Bullet* bullet = bullet_arr[i];
+		BulletEnemy* bullet = bullet_arr[i];
 
 		if (bullet == nullptr)
 			continue;
@@ -69,33 +63,29 @@ update_status Shooting::Update()
 		}
 		else if (SDL_GetTicks() >= bullet->spawnTime)
 		{
-			gGame->render->Blit(text, bullet->position.x, bullet->position.y, &(bullet->anim.GetCurrentFrame()),false);
-			if (bullet->chunk_played == false)
+			gGame->render->Blit(text, bullet->position.x, bullet->position.y, &(bullet->anim.GetCurrentFrame()), false);
+			/*if (bullet->chunk_played == false)
 			{
 				bullet->chunk_played = true;
-				
-			}
-		}
-		if (bullet->position.x == gGame->enemy->pos.x && bullet->position.y >= gGame->enemy->pos.y && bullet->position.y <= gGame->enemy->pos.y + 120) {
-			
-			gGame->enemy->Damage(10);
+
+			}*/
 		}
 		
 
-		
+
 
 	}
 	return UPDATE_CONTINUE;
 }
 
-void Shooting::AddBullet(const Bullet& bullet, int x, int y, Uint32 delay)
+void ShootingEnemy::AddBullet(const BulletEnemy& bullet, int x, int y, Uint32 delay)
 {
-	Bullet* b = new Bullet(bullet);
+	BulletEnemy* b = new BulletEnemy(bullet);
 	b->spawnTime = SDL_GetTicks() + delay;
 	b->position.x = x;
 	b->position.y = y;
 
-	
+
 
 	bullet_arr[last_bullet++] = b;
 	if (last_bullet == MAX_BULLETS)
@@ -105,18 +95,18 @@ void Shooting::AddBullet(const Bullet& bullet, int x, int y, Uint32 delay)
 // -------------------------------------------------------------
 // -------------------------------------------------------------
 
-Bullet::Bullet()
+BulletEnemy::BulletEnemy()
 {
 	position.SetToZero();
 	speed.SetToZero();
 }
 
-Bullet::Bullet(const Bullet& b) :
+BulletEnemy::BulletEnemy(const BulletEnemy& b) :
 	anim(b.anim), position(b.position), speed(b.speed), chunk(b.chunk),
 	spawnTime(b.spawnTime), damage(b.damage)
 {}
 
-bool Bullet::Update()
+bool BulletEnemy::Update()
 {
 	bool ret = true;
 
@@ -126,19 +116,17 @@ bool Bullet::Update()
 		if ((SDL_GetTicks() - spawnTime) > damage)
 			ret = false;
 	}
-	
+
 	if (!SDL_GetTicks() - spawnTime > 0) {
 		position.x += speed.x;
 		position.y += speed.y;
 	}
 
-	
+
 
 	return ret;
 }
 
-Bullet::~Bullet() {
-	
+BulletEnemy::~BulletEnemy() {
+
 }
-
-

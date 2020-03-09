@@ -24,6 +24,8 @@ public:
 	Animation kamehameha;
 	Animation* curr_anim;
 
+	int life = 100;
+
 	SDL_Texture* texture = nullptr;
 	iPoint pos;
 

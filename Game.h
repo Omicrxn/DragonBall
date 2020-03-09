@@ -4,7 +4,7 @@
 
 #include "Globals.h"
 #include "Time.h"
-#define NUM_MODULES 11 //number of modules created
+#define NUM_MODULES 12 //number of modules created
 //definition of all the modules created
 class Window;
 class Input;
@@ -16,6 +16,7 @@ class Level;
 class Audio;
 class Enemy;
 class Shooting;
+class ShootingEnemy;
 class Menu;
 class Transition;
 class Game
@@ -36,6 +37,7 @@ public:
 	Shooting* shooting;
 	Menu* menu;
 	Transition* transition;
+	ShootingEnemy* shootingEnemy;
 	public:
 	bool Init();//method to initialize everything
 	update_status Update();//variable to update which returns update_status (globals.h)

@@ -7,13 +7,13 @@
 
 
 enum STATE {
-	IDLE, DAMAGED, DEAD
+	IDLE, DAMAGED, DEAD,SHOOTING
 };
 
 class Enemy : public Module
 {
 private:
-	int initialX = SCREEN_WIDTH-100, initialY = 50;
+	int initialX = SCREEN_WIDTH-170, initialY = 50;
 public:
 	Enemy();
 	~Enemy();
@@ -29,6 +29,7 @@ public:
 	Animation normal_anim;
 	Animation shooting_anim;
 	Animation damage_anim;
+	Animation dead_anim;
 	Animation* curr_anim;
 
 	STATE curr_state = IDLE;

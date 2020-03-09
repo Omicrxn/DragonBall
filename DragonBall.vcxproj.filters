@@ -15,6 +15,7 @@
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Transition.cpp" />
+    <ClCompile Include="ShootingEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -33,5 +34,6 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Transition.h" />
+    <ClInclude Include="ShootingEnemy.h" />
   </ItemGroup>
 </Project>
