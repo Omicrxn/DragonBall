@@ -102,6 +102,7 @@ update_status Enemy::Update() {
 		curr_state = IDLE;
 	}
 	otra++;
+
 	//STATE MACHINE
 	switch (curr_state) {
 	case IDLE:
