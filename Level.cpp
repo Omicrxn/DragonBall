@@ -20,7 +20,7 @@ Level::~Level() {
 bool Level::Start() {
 	bool ret = true;
 
-	gGame->audio->PlayMusic("Assets/ost.mp3");
+	gGame->audio->PlayMusic("Assets/battle.mp3");
 	texture = gGame->textures->Load("Assets/background.jpg");
 	if (texture == nullptr) {
 		ret = false;

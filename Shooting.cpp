@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "TextureManager.h"
 #include "Audio.h"
+#include "Enemy.h"
 #include "Render.h"
 Shooting::Shooting() {
 		energyBull.anim.PushBack({ 0,70*3,70,70 });
@@ -75,6 +76,16 @@ update_status Shooting::Update()
 				
 			}
 		}
+		if (bullet->position.x == gGame->enemy->pos.x && bullet->position.y >= gGame->enemy->pos.y && bullet->position.y <= gGame->enemy->pos.y + 120) {
+			
+			gGame->enemy->Damage(20);
+		}
+		if (bullet->position.x == gGame->enemy->pos.x+120 && bullet->position.y >= gGame->enemy->pos.y && bullet->position.y <= gGame->enemy->pos.y + 120) {
+
+			gGame->enemy->curr_state = IDLE;
+		}
+
+		
 
 	}
 	return UPDATE_CONTINUE;
@@ -111,6 +122,7 @@ Bullet::Bullet(const Bullet& b) :
 bool Bullet::Update()
 {
 	bool ret = true;
+
 
 	if (damage > 0)
 	{

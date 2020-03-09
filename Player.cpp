@@ -95,7 +95,7 @@ update_status Player::Update() {
 			 kamehameha.Reset();
 		 }
 		 gGame->audio->PlayFx(gGame->audio->LoadFx("Assets/kamehameha.wav"));
-			 gGame->shooting->AddBullet(gGame->shooting->kamehameha, pos.x + 10-2460, (int)pos.y - 10, 4100);
+		 gGame->shooting->AddBullet(gGame->shooting->kamehameha, pos.x + 10-2460, (int)pos.y - 10, 4100);
 	 }
 	
 	 SDL_Rect rect = curr_anim->GetCurrentFrame();

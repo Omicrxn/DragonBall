@@ -12,7 +12,7 @@
 Menu::Menu()
 {
 	
-	menu_anim.PushBack({ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+	menu_anim.PushBack({ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
 
 }
 Menu::~Menu()
@@ -27,7 +27,7 @@ bool Menu::Start()
 	LOG("Loading welcome screen");
 	bool ret = true;
 
-	texture = gGame->textures->Load("assets/menu.jpg");
+	texture = gGame->textures->Load("assets/menu.png");
 	if (texture == nullptr) {
 		ret = false;
 		LOG("Error loading the welcomeScreen spritesheet");
@@ -45,7 +45,7 @@ bool Menu::Start()
 update_status Menu::Update()
 {
 
-	if ((gGame->input->keyboard[SDL_SCANCODE_SPACE])) {
+	if ((gGame->input->keyboard[SDL_SCANCODE_RETURN] || gGame->input->keyboard[SDL_SCANCODE_SPACE])) {
 		gGame->audio->PlayFx(start_audio);
 		gGame->transition->TransitionStart(this, gGame->level);
 	}
