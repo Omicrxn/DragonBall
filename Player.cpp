@@ -14,20 +14,31 @@ Player::Player() {
 		normal_anim.PushBack({ 70 * i,0,70,70 });
 	}
 	normal_anim.speed = 0.035f;
-
+	//shooting anim
 	for (int i = 0; i < 1; i++)
 	{
 		shooting_anim.PushBack({ 70 * i,70,70,70 });
 	}
 	shooting_anim.speed = 0.05f;
 	shooting_anim.loop = false;
+	//kamehameha anim
 	for (int i = 2; i < 4; i++)
 	{
 		kamehameha.PushBack({ 70 * i,70,70,70 });
 	}
 	kamehameha.speed = 0.004f;
 	kamehameha.loop = false;
-	
+
+	//damage anim
+	damage_anim.PushBack({ 0,280,70,70 });
+	damage_anim.speed = 0.04f;
+	//dead anim
+	for (int i = 0; i < 1; i++)
+	{
+		dead_anim.PushBack({ 0,280,70,70 });
+	}
+	dead_anim.speed = 0.05f;
+	dead_anim.loop = false;
 }
 
 Player::~Player() {

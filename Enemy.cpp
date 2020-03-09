@@ -33,7 +33,7 @@ Enemy::Enemy() {
 	//damage anim
 	damage_anim.PushBack({ 70 * 4,140,70,70 });
 
-	damage_anim.speed = 0.2f;
+	damage_anim.speed = 0.03f;
 	damage_anim.loop = false;
 
 }
@@ -93,12 +93,12 @@ update_status Enemy::Update() {
 	}
 
 
-	if (shoot == 3 && curr_state != DEAD) {
+	if (shoot == 3 && curr_state != DEAD && curr_state != DAMAGED) {
 		curr_state = SHOOTING;
 		gGame->shootingEnemy->AddBullet(gGame->shootingEnemy->energyBull, pos.x - 10, (int)pos.y, 2);
 		otra = 0;
 	}
-	else if (otra == 50 && curr_state != DEAD){
+	else if (otra == 50 && curr_state != DEAD && curr_state != DAMAGED){
 		curr_state = IDLE;
 	}
 	otra++;
@@ -152,9 +152,6 @@ void Enemy::Damage(int damage) {
 	}
 	if (life == 0) {
 		curr_state = DEAD;
-	}
-	else {
-		curr_state = IDLE;
 	}
 	
 	std::cout << "Enemy: " << life << std::endl;
