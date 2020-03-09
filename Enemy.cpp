@@ -126,7 +126,7 @@ update_status Enemy::Update() {
 	case DAMAGED:
 		if (curr_anim != &damage_anim) {
 			curr_anim = &damage_anim;
-			SDL_Delay(300);
+			SDL_Delay(100);
 			curr_state = IDLE;
 			damage_anim.Reset();
 		}
