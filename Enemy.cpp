@@ -4,6 +4,8 @@
 #include "Input.h"
 #include "Render.h"
 #include "ShootingEnemy.h"
+#include "Transition.h"
+#include "Menu.h"
 #include "Enemy.h"
 #include <iostream>
 
@@ -50,7 +52,8 @@ bool Enemy::Init() {
 
 bool Enemy::Start() {
 
-
+	life = 100;
+	curr_state = IDLE;
 	//loading player Textures
 	LOG("Loading player textures");
 	bool ret = true;
@@ -69,7 +72,14 @@ int otra = 0;
 update_status Enemy::Update() {
 	update_status status = UPDATE_CONTINUE;
 	int shoot = rand() % (40 - 0 + 1);
-
+	if (life == 0) {
+		curr_state = DEAD;
+		if (curr_anim != &dead_anim) {
+			curr_anim = &dead_anim;
+			dead_anim.Reset();
+		}
+		gGame->transition->TransitionStart(this, gGame->menu);
+	}
 	
 
 	if (curr_state == IDLE || curr_state == SHOOTING) {
@@ -98,7 +108,7 @@ update_status Enemy::Update() {
 		gGame->shootingEnemy->AddBullet(gGame->shootingEnemy->energyBull, pos.x - 10, (int)pos.y, 2);
 		otra = 0;
 	}
-	else if (otra == 50 && curr_state != DEAD && curr_state != DAMAGED){
+	else if (otra == 50 && curr_state != DEAD){
 		curr_state = IDLE;
 	}
 	otra++;
@@ -123,6 +133,7 @@ update_status Enemy::Update() {
 			curr_anim = &dead_anim;
 			dead_anim.Reset();
 		}
+
 		break;
 
 	case SHOOTING:
@@ -146,14 +157,12 @@ int Enemy::getLife() {
 	return life;
 }
 void Enemy::Damage(int damage) {
-	curr_state = DAMAGED;
+	//curr_state = DAMAGED;
 	life -= damage;
 	if (life <= 0) {
 		life = 0;
 	}
-	if (life == 0) {
-		curr_state = DEAD;
-	}
+	
 	
 	std::cout << "Enemy: " << life << std::endl;
 }
