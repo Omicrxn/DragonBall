@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include "Input.h"
 #include "Render.h"
+#include "Enemy.h"
 #include "Player.h"
 #include "Shooting.h"
 #include "Audio.h"
@@ -76,13 +77,27 @@ update_status Player::Update() {
 			curr_anim = &dead_anim;
 			dead_anim.Reset();
 		}
-		gGame->transition->TransitionStart(this, gGame->menu);
+		gGame->enemy->curr_state = STOP;
+		if (curr_anim->Finished()) {
+			gGame->transition->TransitionStart(this, gGame->menu);
+		}
+		
+	}
+	if (curr_state == xDAMAGED) {
+		if (curr_anim != &damage_anim) {
+			curr_anim = &damage_anim;
+			damage_anim.Reset();
+		}
+		if (curr_anim->Finished()) {
+			curr_anim->Reset();
+			curr_state = xIDLE;
+		}
 	}
 	//Idle handle
 	
 		if (gGame->input->keyboard[SDL_SCANCODE_D] == KEY_IDLE && gGame->input->keyboard[SDL_SCANCODE_F] != KEY_REPEAT &&
 			gGame->input->keyboard[SDL_SCANCODE_A] == KEY_IDLE && gGame->input->keyboard[SDL_SCANCODE_SPACE] != KEY_REPEAT &&
-			gGame->input->keyboard[SDL_SCANCODE_S] == KEY_IDLE && gGame->input->keyboard[SDL_SCANCODE_A] == KEY_IDLE && curr_state != xDEAD) {
+			gGame->input->keyboard[SDL_SCANCODE_S] == KEY_IDLE && gGame->input->keyboard[SDL_SCANCODE_A] == KEY_IDLE && curr_state == xIDLE) {
 			if (curr_anim != &normal_anim) {
 				curr_anim = &normal_anim;
 				normal_anim.Reset();
@@ -137,7 +152,7 @@ update_status Player::Update() {
 }
 
 void Player::Damage(int damage) {
-	
+	curr_state = xDAMAGED;
 	life -= damage;
 	if (life <= 0) {
 		life = 0;

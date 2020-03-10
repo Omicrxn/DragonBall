@@ -6,7 +6,7 @@
 #include "Animation.h"
 
 enum STATE {
-	IDLE, DAMAGED, DEAD,SHOOTING
+	IDLE, DAMAGED, DEAD,SHOOTING,STOP
 };
 
 class Enemy : public Module

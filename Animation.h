@@ -36,7 +36,7 @@ public:
 	SDL_Rect& GetCurrentFrame()
 	{
 
-		switch (direction)
+  	switch (direction)
 		{
 		case FLOW::forwards:
 		{
@@ -70,6 +70,7 @@ public:
 	}
 	void Reset()
 	{
+		loops = 0;
 		current_frame = 0.0f;
 	}
 

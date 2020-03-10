@@ -6,6 +6,7 @@
 #include "ShootingEnemy.h"
 #include "Transition.h"
 #include "Menu.h"
+#include "Player.h"
 #include "Enemy.h"
 #include <iostream>
 #include "Audio.h"
@@ -21,7 +22,7 @@ Enemy::Enemy() {
 	
 		shooting_anim.PushBack({ 140,210,70,70 });
 	
-	shooting_anim.speed = 0.05f;
+	shooting_anim.speed = 0.01f;
 
 
 	//DEAD ANIM
@@ -36,7 +37,7 @@ Enemy::Enemy() {
 	//damage anim
 	damage_anim.PushBack({ 70 * 4,140,70,70 });
 	damage_anim.speed = 0.03f;
-	damage_anim.loop = false;
+	
 
 }
 
@@ -67,7 +68,7 @@ bool Enemy::Start() {
 }
 
 int num = 18;
-int otra = 0;
+
 
 update_status Enemy::Update() {
 	update_status status = UPDATE_CONTINUE;
@@ -78,8 +79,14 @@ update_status Enemy::Update() {
 			curr_anim = &dead_anim;
 			dead_anim.Reset();
 		}
-		gGame->transition->TransitionStart(this, gGame->menu);
+		gGame->player->curr_state = xIDLE;
+		if (curr_anim->Finished()) {
+			gGame->transition->TransitionStart(this, gGame->menu);
+		}
+		
 	}
+
+	
 	
 
 	if (curr_state == IDLE || curr_state == SHOOTING) {
@@ -103,16 +110,17 @@ update_status Enemy::Update() {
 	}
 
 
-	if (shoot == 3 && curr_state != DEAD && curr_state != DAMAGED) {
+	if (shoot == 3 && curr_state != DEAD && curr_state != DAMAGED && curr_state != STOP) {
 		curr_state = SHOOTING;
 		gGame->shootingEnemy->AddBullet(gGame->shootingEnemy->energyBull, pos.x - 10, (int)pos.y, 2);
 		gGame->audio->PlayFx(gGame->audio->LoadFx("Assets/frieza_shoot.wav"));
-		otra = 0;
 	}
-	else if (otra == 50 && curr_state != DEAD){
+	else if (curr_state == SHOOTING && curr_anim->Finished()){
+		curr_anim->Reset();
 		curr_state = IDLE;
+		
 	}
-	otra++;
+
 
 	//STATE MACHINE
 	switch (curr_state) {
@@ -126,9 +134,11 @@ update_status Enemy::Update() {
 	case DAMAGED:
 		if (curr_anim != &damage_anim) {
 			curr_anim = &damage_anim;
-			SDL_Delay(100);
-			curr_state = IDLE;
 			damage_anim.Reset();
+		}
+		if (curr_anim->Finished()) {
+			curr_anim->Reset();
+			curr_state = IDLE;
 		}
 		break;
 	case DEAD:
@@ -146,6 +156,11 @@ update_status Enemy::Update() {
 			shooting_anim.Reset();
 		}
 		break;
+	case STOP:
+		if (curr_anim != &normal_anim) {
+			curr_anim = &normal_anim;
+			normal_anim.Reset();
+		}
 	}
 
 	SDL_Rect rect = curr_anim->GetCurrentFrame();
